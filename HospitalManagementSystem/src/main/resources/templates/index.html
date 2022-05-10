@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+body {
+	background-image: url("/index.jpg");
+height:100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: 	#F0F8FF;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: #00BFFF;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #CCFFFF;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #00FFFF;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+ 
+</head>
+<body >
+<div class="navbar">
+  <div class="dropdown">
+    <button  class="dropbtn" >Home
+      <i class="fa fa-caret-down"></i>
+    </button>
+    </div>
+   
+  <div class="dropdown">
+    <button  class="dropbtn" >Patient
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/AddPatient/">Add Patient</a>
+      
+      <a href="/EditPatient/">Edit Patient</a>
+    </div>
+    </div>
+  <div class="dropdown">
+    <button  class="dropbtn" >Doctor
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a th:href="@{'/Admin/AddDoctor/'}">Add Doctor</a>
+      
+      <a th:href="@{'/Admin/Doctorlist/'}">Doctor List</a>
+    </div>
+  </div>
+   <div class="dropdown">
+    <button  class="dropbtn" >Admin
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a th:href="@{'/Logout/'}">LogOut</a>
+    </div>
+  </div>
+   
+</div>
+
+	<div align="center">
+	<h3>Appointment List</h3>
+		<a href="new">Make New Appointment</a>
+		<br>
+
+		<table border="2" cellpading="10">
+			<thead>
+				<tr>
+					<th>AppointmentId</th>
+					<th>PatientName</th>
+					<th>Date</th>
+					<th>Mobile_no</th>
+					<th>Problem</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="appointment:${listAppointments}">
+					<td th:text="${appointment.id}">AppointmentId</td>
+					<td th:text="${appointment.name}">PatientName</td>
+					<td th:text="${appointment.date}">Date</td>
+					<td th:text="${appointment.mno}">Mobile_no</td>
+					<td th:text="${appointment.problem}">Problem</td>
+					<td th:text="${appointment.status}">Status</td>
+					<td><a th:href="@{'/confirm/'+${appointment.id}}">Confirm</a>
+						&nbsp;&nbsp;&nbsp; 
+						<a th:href="@{'/cancel/'+${appointment.id}}">Cancel</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
